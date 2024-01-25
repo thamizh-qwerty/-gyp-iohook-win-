@@ -63,48 +63,7 @@ function install(runtime, abi, platform, arch, cb) {
     nuggetOpts.strictSSL = false;
   }
 
-  nugget(downloadUrl, nuggetOpts, function (errors) {
-    if (errors) {
-      const error = errors[0];
 
-      if (error.message.indexOf('404') === -1) {
-        onerror(error);
-      } else {
-        console.error(
-          'Prebuild for current platform (' + currentPlatform + ') not found!'
-        );
-        console.error('Try to build for your platform manually:');
-        console.error('# cd node_modules/iohook;');
-        console.error('# npm install');
-        console.error('# npm run build');
-        console.error('');
-      }
-    }
-
-    let options = {
-      readable: true,
-      writable: true,
-      hardlinkAsFilesFallback: true,
-    };
-
-    let binaryName;
-    let updateName = function (entry) {
-      if (/\.node$/i.test(entry.name)) binaryName = entry.name;
-    };
-    let targetFile = path.join(__dirname, 'builds', essential);
-    let extract = tfs.extract(targetFile, options).on('entry', updateName);
-    pump(
-      fs.createReadStream(path.join(nuggetOpts.dir, nuggetOpts.target)),
-      zlib.createGunzip(),
-      extract,
-      function (err) {
-        if (err) {
-          return onerror(err);
-        }
-        cb();
-      }
-    );
-  });
 }
 
 const options = optionsFromPackage();
