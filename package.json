@@ -1,5 +1,5 @@
 {
-  "name": "@t/what",
+  "name": "what-event",
   "version": "0.9.3",
   "description": "Node.js global keyboard and mouse hook",
   "author": "Thamizh Munsamy",
@@ -81,5 +81,8 @@
       "4.0.4",
       "69"
     ]
-  ]
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }
